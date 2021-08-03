@@ -57,6 +57,25 @@ if __name__ == '__main__':
         forward_reads.sort()
         reverse_reads.sort()
 
+    # reads match check
+    for i in range(len(forward_reads)):
+        fr_basename = os.path.splitext(os.path.basename(forward_reads[i]))[0]
+        rr_basename = os.path.splitext(os.path.basename(forward_reads[i]))[0]
+        if fr_basename.endswith("_1") and rr_basename.endswith("_2"):
+            if fr_basename.replace("_1", "") != rr_basename.replace("_2"):
+                raise ValueError("Reads prefixes are not the same! Please check the reads lists!"
+                                 f"Reads {forward_reads[i]}, {reverse_reads[i]}")
+        elif "R1" in fr_basename and "R2" in rr_basename:
+            if fr_basename.replace("R1", "") != fr_basename.replace("R2", ""):
+                raise ValueError("Reads prefixes are not the same! Please check the reads lists!"
+                                 f"Reads {forward_reads[i]}, {reverse_reads[i]}")
+        else:
+            raise ValueError("Reads are out of standard!\n"
+                             "Forward reads should ends with '_1' or contain 'R1'\n"
+                             "Reverse reads should ends with '_2' or contain 'R2'"
+                             f"Please check the files {forward_reads[i]}, {reverse_reads[i]}")
+        print("\nReads match test is successful!\n")
+
     execution_folder = os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
     snakefile = os.path.join(execution_folder, 'scripts/Snakefile')
 
