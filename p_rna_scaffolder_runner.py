@@ -60,9 +60,10 @@ if __name__ == '__main__':
     # reads match check
     for i in range(len(forward_reads)):
         fr_basename = os.path.splitext(os.path.basename(forward_reads[i]))[0]
-        rr_basename = os.path.splitext(os.path.basename(forward_reads[i]))[0]
+        rr_basename = os.path.splitext(os.path.basename(reverse_reads[i]))[0]
+        print(fr_basename, rr_basename)
         if fr_basename.endswith("_1") and rr_basename.endswith("_2"):
-            if fr_basename.replace("_1", "") != rr_basename.replace("_2"):
+            if fr_basename.replace("_1", "") != rr_basename.replace("_2", ""):
                 raise ValueError("Reads prefixes are not the same! Please check the reads lists!"
                                  f"Reads {forward_reads[i]}, {reverse_reads[i]}")
         elif "R1" in fr_basename and "R2" in rr_basename:
