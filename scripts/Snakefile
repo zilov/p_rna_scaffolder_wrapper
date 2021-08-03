@@ -1,0 +1,69 @@
+rule all:
+    input:
+        config["scaffold"]
+
+rule build_index:
+    input: config["assembly"]
+    conda: "../envs/hisat2.yaml"
+    output: config["assembly_index"]
+    params:
+        index_dir = directory(config["assembly_index_dir"]),
+        index_prefix = config["assembly_index_prefix"]
+    shell:
+        """
+        hisat2-build {input} {params.index_prefix}
+        """
+
+rule alignment:
+    input:
+        assembly = config["assembly"],
+        forward_read = config["forward_read"],
+        reverse_read = config["reverse_read"],
+        index = rules.build_index.output
+    conda: "../envs/hisat2.yaml"
+    output: config["alignment"]
+    params:
+        index_dir = directory(config["assembly_index_dir"]),
+        index_prefix = config["assembly_index_prefix"]
+    shell:
+        """
+        hisat2 {input} {params.index_prefix}
+        """
+
+rule install_scaffolder:
+    input:
+        alignment = rules.alignment.output
+    output:
+        scaffolder = config["scaffolder"]
+    params:
+        tmp_dir = config["tmp_dir"]
+    shell:
+        """
+        cd {params.tmp_dir}
+        
+        git clone https://github.com/CAFS-bioinformatics/P_RNA_scaffolder.git
+        """
+
+rule run_scaffolder:
+    input:
+        scaffolder = rules.install_scaffolder.output.scaffolder,
+        assembly = rules.alignment.input.assembly,
+        forward_read = rules.alignment.input.forward_read,
+        reverse_read = rules.alignment.input.reverse_read,
+        alignment = rules.alignment.output
+    output:
+        scaffold = config["scaffold"]
+    threads: workflow.cores
+    params:
+        scaffolder_dir = config["scaffolder_dir"],
+        intron_length = config["intron_length"],
+        raw_scaffold = config["scaffold_raw"],
+        output_dir = config["scaffolds_dir"]
+    shell:
+        """
+        P_RNA_scaffolder.sh -d {params.scaffolder_dir} -i {input.alignment} -j {input.assembly} \
+        -F {input.forward_read} -R {input.reverse_read} -e {params.intron_length} -t {threads} -o {params.output_dir}
+        
+        mv {params.raw_scaffold} {output.scaffold}
+        """
+
