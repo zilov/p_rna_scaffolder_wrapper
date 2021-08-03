@@ -27,7 +27,7 @@ rule alignment:
         index_prefix = config["assembly_index_prefix"]
     shell:
         """
-        hisat2 {input} {params.index_prefix}
+        hisat2 -x {params.index_prefix} -1 {input.forward_read} -2 {input.reverse_read} -S {output}
         """
 
 rule install_scaffolder:
