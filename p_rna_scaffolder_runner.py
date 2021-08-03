@@ -57,7 +57,7 @@ if __name__ == '__main__':
         forward_reads.sort()
         reverse_reads.sort()
 
-    execution_folder = os.path.dirname(os.path.dirname(os.path.abspath(getsourcefile(lambda: 0))))
+    execution_folder = os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
     snakefile = os.path.join(execution_folder, 'scripts/Snakefile')
 
     for i in tqdm(range(len(forward_reads))):
