@@ -36,14 +36,15 @@ rule install_scaffolder:
     output:
         scaffolder = config["scaffolder"]
     params:
-        tmp_dir = config["tmp_dir"]
+        tmp_dir = config["tmp_dir"],
+        scaffolder_dir= config["scaffolder_dir"]
     shell:
         """
         cd {params.tmp_dir}
         
         git clone https://github.com/CAFS-bioinformatics/P_RNA_scaffolder.git
         
-        chmod +x {output}
+        chmod +x {params.scaffolder_dir}/*
         """
 
 rule run_scaffolder:
