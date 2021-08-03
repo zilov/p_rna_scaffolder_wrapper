@@ -19,7 +19,7 @@ scaffolder: "{outdir}/tmp/P_RNA_scaffolder/P_RNA_scaffolder.sh"
 scaffolder_dir: "{outdir}/tmp/P_RNA_scaffolder"
 
 scaffolds_dir: "{outdir}/tmp/scaffolds"
-scaffold_raw: "{outdir}/tmp/scaffolds/P_RNA_scaffolder.fasta"
+scaffold_raw: "{outdir}/tmp/scaffolds/P_RNA_scaffold.fasta"
 scaffold: "{outdir}/tmp/scaffolds/{prefix}.fasta"
     """
 
