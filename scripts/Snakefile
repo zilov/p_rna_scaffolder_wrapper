@@ -61,7 +61,7 @@ rule run_scaffolder:
         output_dir = config["scaffolds_dir"]
     shell:
         """
-        P_RNA_scaffolder.sh -d {params.scaffolder_dir} -i {input.alignment} -j {input.assembly} \
+        {input.scaffolder} -d {params.scaffolder_dir} -i {input.alignment} -j {input.assembly} \
         -F {input.forward_read} -R {input.reverse_read} -e {params.intron_length} -t {threads} -o {params.output_dir}
         
         mv {params.raw_scaffold} {output.scaffold}
