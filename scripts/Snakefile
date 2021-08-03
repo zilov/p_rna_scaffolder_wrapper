@@ -42,6 +42,8 @@ rule install_scaffolder:
         cd {params.tmp_dir}
         
         git clone https://github.com/CAFS-bioinformatics/P_RNA_scaffolder.git
+        
+        chmod +x {output}
         """
 
 rule run_scaffolder:
