@@ -1,3 +1,5 @@
+import os
+
 def config(forward_read, reverse_read, assembly, prefix, outdir, intron_length, config_file):
     assembly_prefix = os.path.splitext(os.path.basename(assembly))[0]
     config = f"""
