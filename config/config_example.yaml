@@ -1,0 +1,20 @@
+
+assembly: "/media/eternus1/projects/zilov/data/wasps/W15A_Psomagen_SR/platanus_v1_assembly/wasp_gapClosed.fa"
+forward_read: "/media/eternus1/projects/zilov/data/wasps/wasp_rna/AC1_CRRA190009585-2a_HNLJ2DSXX_L1_1.fq"
+reverse_read: "/media/eternus1/projects/zilov/data/wasps/wasp_rna/AC1_CRRA190009585-2a_HNLJ2DSXX_L1_2.fq"
+prefix: "AC1_CRRA190009585-2a_HNLJ2DSXX_L1_1"
+intron_length: "450000"
+tmp_dir: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/"
+
+assembly_index_dir: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/assembly_index"
+assembly_index: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/assembly_index/wasp_gapClosed.1.ht2"
+assembly_index_prefix: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/assembly_index/wasp_gapClosed"
+alignment: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/alignment/AC1_CRRA190009585-2a_HNLJ2DSXX_L1_1.sam"
+
+scaffolder: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/P_RNA_scaffolder/P_RNA_scaffolder.sh"
+scaffolder_dir: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/P_RNA_scaffolder"
+
+scaffolds_dir: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/scaffolds"
+scaffold_raw: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/scaffolds/P_RNA_scaffolder.fasta"
+scaffold: "/media/eternus1/projects/zilov/genome_assembly/wasp/p_rna_scaffolder_wrapper/tmp/scaffolds/AC1_CRRA190009585-2a_HNLJ2DSXX_L1_1.fasta"
+    
