@@ -1,4 +1,4 @@
-#P_RNA_scaffolder wrapper
+# P_RNA_scaffolder wrapper
 
 The wrapper was written to automate the work of P_RNA_scaffolder with the list of RNAseq reads.
 It creates assembly index, reads alignment and runs P_RNA_scaffolder automatically with one command!
