@@ -6,12 +6,13 @@ rule build_index:
     input: config["assembly"]
     conda: "../envs/hisat2.yaml"
     output: config["assembly_index"]
+    threads: workflow.cores
     params:
         index_dir = directory(config["assembly_index_dir"]),
         index_prefix = config["assembly_index_prefix"]
     shell:
         """
-        hisat2-build {input} {params.index_prefix}
+        hisat2-build -p {threads} {input} {params.index_prefix}
         """
 
 rule alignment:
