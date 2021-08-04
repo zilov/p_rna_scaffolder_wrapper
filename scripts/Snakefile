@@ -21,13 +21,14 @@ rule alignment:
         reverse_read = config["reverse_read"],
         index = rules.build_index.output
     conda: "../envs/hisat2.yaml"
+    threads: workflow.cores
     output: config["alignment"]
     params:
         index_dir = directory(config["assembly_index_dir"]),
         index_prefix = config["assembly_index_prefix"]
     shell:
         """
-        hisat2 -x {params.index_prefix} -1 {input.forward_read} -2 {input.reverse_read} -S {output}
+        hisat2 -x {params.index_prefix} -1 {input.forward_read} -2 {input.reverse_read} -p {threads} -S {output}
         """
 
 rule install_scaffolder:
@@ -42,7 +43,7 @@ rule install_scaffolder:
         """
         cd {params.tmp_dir}
         
-        git clone https://github.com/CAFS-bioinformatics/P_RNA_scaffolder.git
+        git clone https://github.com/zilov/P_RNA_scaffolder.git
         
         chmod +x {params.scaffolder_dir}/*
         """
@@ -56,17 +57,22 @@ rule run_scaffolder:
         alignment = rules.alignment.output
     output:
         scaffold = config["scaffold"]
+    conda:
+        "../envs/p_rna_scaffolder.yaml"
     threads: workflow.cores
     params:
         scaffolder_dir = config["scaffolder_dir"],
         intron_length = config["intron_length"],
         raw_scaffold = config["scaffold_raw"],
-        output_dir = directory(config["scaffolds_dir"])
+        output_dir = directory(config["p_rna_dir"]),
+        scaffolds_dir = directory(config["scaffolds_dir"])
     shell:
         """
         {input.scaffolder} -d {params.scaffolder_dir} -i {input.alignment} -j {input.assembly} \
         -F {input.forward_read} -R {input.reverse_read} -e {params.intron_length} -t {threads} -o {params.output_dir}
         
         mv {params.raw_scaffold} {output.scaffold}
+        
+        rm -r {params.output_dir}
         """
 
