@@ -79,5 +79,6 @@ rule run_scaffolder:
         rm {input.alignment}
         
         rm {params.index}*
+        
+        rm -rf {params.scaffolder_dir}
         """
-
